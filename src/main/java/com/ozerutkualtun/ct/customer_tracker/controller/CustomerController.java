@@ -5,10 +5,7 @@ import com.ozerutkualtun.ct.customer_tracker.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,8 +32,22 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
 
-        customerService.saveCustoemr(customer);
+        customerService.saveCustomer(customer);
         return "redirect:/customers/list";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("customerId") Integer customerId, Model model) {
+
+        // get the customer from db
+
+        Customer customer = customerService.getCustomerById(customerId);
+
+        // set customer as a model attribute to pre-populate the form
+
+        model.addAttribute("customer", customer);
+
+        return "customer-form";
     }
 
 
