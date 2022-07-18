@@ -33,6 +33,7 @@
                 <%--                constructing an update link with customer id --%>
                 <c:url var="updateLink" value="/customers/showFormForUpdate">
                     <c:param name="customerId" value="${customer.id}"/>
+                    <%--                    requestpath?customerId=5   gibi bir şey sağlıyor.--%>
                 </c:url>
 
                 <tr>
@@ -41,7 +42,7 @@
                     <td>${customer.lastName}</td>
                     <td>${customer.email}</td>
                         <%--                    displaying the update link--%>
-                    <td><a href="${updateLink}"></a></td>
+                    <td><a href="${updateLink}">Update</a></td>
                 </tr>
             </c:forEach>
         </table>
