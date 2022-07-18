@@ -11,4 +11,6 @@ public interface CustomerDao {
     void save(Customer customer);
 
     Customer getCustomerById(Integer customerId);
+
+    void deleteCustomerById(Integer customerId);
 }

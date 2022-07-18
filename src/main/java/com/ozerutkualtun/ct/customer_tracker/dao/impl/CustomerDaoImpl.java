@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,8 +38,19 @@ public class CustomerDaoImpl implements CustomerDao {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Customer> query = currentSession.createQuery("from Customer c Where c.id = ?");
 
-        query.setParameter(0 , customerId);
+        query.setParameter(0, customerId);
 
         return query.getSingleResult();
+    }
+
+    @Override
+    public void deleteCustomerById(Integer customerId) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Customer customer = session.get(Customer.class, customerId);
+
+        if (!Objects.isNull(customer)) {
+            session.delete(customer);
+        }
     }
 }
