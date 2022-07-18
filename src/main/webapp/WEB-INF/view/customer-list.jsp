@@ -5,8 +5,8 @@
 <head>
     <title>Customer List</title>
     <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/style.css" />
+            rel="stylesheet"
+            href="${pageContext.request.contextPath}/resources/css/style.css"/>
 </head>
 <body>
 <div id="wrapper">
@@ -18,21 +18,30 @@
     <div id="content">
         <input type="button" value="Add Customer"
                onclick="window.location.href='showFormForAdd'; return false;"
-                class="add-button"/>
+               class="add-button"/>
         <table>
             <tr>
                 <th>ID</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
+                <th>Action</th>
             </tr>
 
             <c:forEach var="customer" items="#{customers}">
+
+                <%--                constructing an update link with customer id --%>
+                <c:url var="updateLink" value="/customers/showFormForUpdate">
+                    <c:param name="customerId" value="${customer.id}"/>
+                </c:url>
+
                 <tr>
                     <td>${customer.id}</td>
                     <td>${customer.firstName}</td>
                     <td>${customer.lastName}</td>
                     <td>${customer.email}</td>
+                        <%--                    displaying the update link--%>
+                    <td><a href="${updateLink}"></a></td>
                 </tr>
             </c:forEach>
         </table>
